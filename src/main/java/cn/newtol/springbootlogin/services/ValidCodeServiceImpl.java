@@ -47,6 +47,13 @@ public class ValidCodeServiceImpl implements ValidCodeService {
      */
     private static final String VALID_SUCCESS = "success";
 
+    /**
+     *  获取验证码的次数
+     */
+    private static final String VALIDCODE_COUNT_NUM = "validCodeCountNum";
+
+    private static final Integer VALIDCODE_COUNT_LIMITED = 2;
+
 
     /**
      * @param validCodeDO:用户注册的电话或者邮箱
@@ -65,17 +72,28 @@ public class ValidCodeServiceImpl implements ValidCodeService {
             return ResultUtil.error(ResultEnum.ValidCode_EXPIRED);
         }
 
-        System.out.println(isValid);
         if (!Objects.equals(isValid,VALID_SUCCESS)){
             return ResultUtil.error(ResultEnum.ValidCode_ERROR);
         }
+        // 判断是否超过获取限制
+        Integer countNum = (Integer) request.getSession().getAttribute(VALIDCODE_COUNT_NUM);
+        if (countNum  == null) {
+            countNum = 0;
+        }
+        if(countNum > VALIDCODE_COUNT_LIMITED){
+            return ResultUtil.error(ResultEnum.ValidCodeCountNum_OverFlow);
+        }else{
+            countNum++;
+        }
+        request.getSession().setAttribute(VALIDCODE_COUNT_NUM,countNum);
 
         // 判断用户的注册方式
         String account = null;
         String code = DataUtil.getRandomNum();
         if (validCodeDO.getEmail() != null) {
             account = validCodeDO.getEmail();
-            messageService.sendEmail(account,"注册验证码","感谢您的注册，您的注册验证码为："+code);
+            System.out.println(account);
+            messageService.sendEmail(account, "注册验证码", "感谢您的注册，您的注册验证码为：" + code);
         }
         else if (validCodeDO.getPhoneNum() != null) {
             account = validCodeDO.getPhoneNum();

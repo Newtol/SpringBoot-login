@@ -82,7 +82,6 @@ public class ValidCodeImgUtil {
         int r = random.nextInt(255);
         int g = random.nextInt(255);
         int b = random.nextInt(255);
-        System.out.println(r+"=="+g+"=="+b);
         return new Color(r, g, b);
     }
 
@@ -116,9 +115,7 @@ public class ValidCodeImgUtil {
         if(result == null){
             logger.error("验证码计算错误");
         }
-        String[] strings = {str, String.valueOf(result)};
-        System.out.println(result);
-        return strings;
+        return new String[]{str, String.valueOf(result)};
     }
 
 
@@ -203,7 +200,6 @@ public class ValidCodeImgUtil {
         String validCode = (String) request.getSession().getAttribute(VALID_CODE_IMG_KEY);
         // 删除存在session中的验证码，即：只可使用一次
         request.getSession().removeAttribute(VALID_CODE_IMG_KEY);
-        System.out.println("==="+validCode+"==="+code);
         // 判断用户输入是否为空
         if (code == null){
             return ResultUtil.error(ResultEnum.ValidCcde_EMPTY);

@@ -45,9 +45,12 @@ public enum ResultEnum {
     ValidCcde_EMPTY(6,"验证码为空"),
 
     /**
-     * 未经过验证
+     * 获取手机或邮箱验证码超过次数
      */
-    ValidCode_REFRESH(7,"请刷新验证码");
+     ValidCodeCountNum_OverFlow(7,"超过获取次数");
+
+
+
 
     /**
      * 错误码
