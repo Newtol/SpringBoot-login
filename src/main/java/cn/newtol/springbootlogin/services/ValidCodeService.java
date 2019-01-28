@@ -1,8 +1,10 @@
 package cn.newtol.springbootlogin.services;
 
 import cn.newtol.springbootlogin.entity.ResultVO;
-import cn.newtol.springbootlogin.entity.VaildCodeDO;
+import cn.newtol.springbootlogin.entity.ValidCodeDO;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @Author: 公众号：Newtol
@@ -11,7 +13,7 @@ import org.springframework.stereotype.Service;
  * @params:
  */
 @Service
-public interface VaildCodeService {
+public interface ValidCodeService {
     /**
      * @Author:
      * @Description: 获取邮箱或者手机验证码
@@ -19,7 +21,7 @@ public interface VaildCodeService {
      * @Param:
      * @return:
      */
-    ResultVO getVaildCode(VaildCodeDO vaildCodeDO) throws Exception;
+    ResultVO getVaildCode(HttpServletRequest request,ValidCodeDO validCodeDO) throws Exception;
 
     /**
     * @Author:
@@ -29,4 +31,5 @@ public interface VaildCodeService {
     * @return:
     */
     boolean isVaildCode(String account,String code);
+
 }

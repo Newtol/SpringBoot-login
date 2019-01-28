@@ -1,8 +1,5 @@
 package cn.newtol.springbootlogin.myEnum;
 
-import cn.newtol.springbootlogin.entity.VaildCodeDO;
-import lombok.Data;
-
 /**
  * @Author: 公众号：Newtol
  * @Description:
@@ -35,7 +32,22 @@ public enum ResultEnum {
     /**
      * 验证码错误
      */
-    VaildCode_ERROR(4,"验证码错误");
+    ValidCode_ERROR(4,"验证码错误"),
+
+    /**
+     * 验证码过期
+     */
+    ValidCode_EXPIRED(5,"验证码过期"),
+
+    /**
+     * 验证码为空
+     */
+    ValidCcde_EMPTY(6,"验证码为空"),
+
+    /**
+     * 未经过验证
+     */
+    ValidCode_REFRESH(7,"请刷新验证码");
 
     /**
      * 错误码

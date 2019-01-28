@@ -28,7 +28,7 @@ public class RegisterServiceImpl implements RegisterService{
 
     @Resource
     private
-    VaildCodeService vaildCodeService;
+    ValidCodeService validCodeService;
 
 
     /**
@@ -56,9 +56,9 @@ public class RegisterServiceImpl implements RegisterService{
         else if(userinfo.getPhoneNum() != null){
             account = userinfo.getPhoneNum();
         }
-        boolean re = vaildCodeService.isVaildCode(account,code);
+        boolean re = validCodeService.isVaildCode(account,code);
         if(!re){
-            return ResultUtil.error(ResultEnum.VaildCode_ERROR);
+            return ResultUtil.error(ResultEnum.ValidCode_ERROR);
         }
 
         //对用户密码进行加密

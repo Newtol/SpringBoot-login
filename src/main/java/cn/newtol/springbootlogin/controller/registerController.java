@@ -2,9 +2,7 @@ package cn.newtol.springbootlogin.controller;
 
 import cn.newtol.springbootlogin.dao.UserInfo;
 import cn.newtol.springbootlogin.entity.ResultVO;
-import cn.newtol.springbootlogin.entity.VaildCodeDO;
 import cn.newtol.springbootlogin.services.RegisterService;
-import cn.newtol.springbootlogin.services.VaildCodeService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
