@@ -56,7 +56,7 @@ public class RegisterServiceImpl implements RegisterService{
         else if(userinfo.getPhoneNum() != null){
             account = userinfo.getPhoneNum();
         }
-        boolean re = validCodeService.isVaildCode(account,code);
+        boolean re = validCodeService.isValidCode(account,code);
         if(!re){
             return ResultUtil.error(ResultEnum.ValidCode_ERROR);
         }

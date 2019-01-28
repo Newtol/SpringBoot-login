@@ -46,7 +46,6 @@ public class ValidCodeServiceImpl implements ValidCodeService {
      * 判断用户是否验证通过
      */
     private static final String VALID_SUCCESS = "success";
-    private static final String VALID_FALSE = "false";
 
 
     /**
@@ -58,7 +57,7 @@ public class ValidCodeServiceImpl implements ValidCodeService {
      * @return:
      */
     @Override
-    public ResultVO getVaildCode(HttpServletRequest request,ValidCodeDO validCodeDO) throws Exception {
+    public ResultVO getValidCode(HttpServletRequest request, ValidCodeDO validCodeDO) throws Exception {
 
         // 验证是否通过图片验证
         String isValid = (String) request.getSession().getAttribute(IS_VALID);
@@ -96,12 +95,8 @@ public class ValidCodeServiceImpl implements ValidCodeService {
      * @return: 返回是否验证成功
      */
     @Override
-    public boolean isVaildCode(String account, String code) {
+    public boolean isValidCode(String account, String code) {
         String str = redisUtil.getHash(validCode, account);
-        if (code.equals(str)) {
-            return true;
-        } else {
-            return false;
-        }
+        return code.equals(str);
     }
 }

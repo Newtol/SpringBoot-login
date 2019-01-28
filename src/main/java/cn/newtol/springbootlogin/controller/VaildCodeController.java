@@ -37,7 +37,7 @@ public class VaildCodeController {
     @PostMapping("/getValidCode")
     @ResponseBody
     public ResultVO sendVaildCode(HttpServletRequest request ,ValidCodeDO validCodeDO) throws Exception {
-        return  validCodeService.getVaildCode(request, validCodeDO);
+        return  validCodeService.getValidCode(request, validCodeDO);
     }
 
 

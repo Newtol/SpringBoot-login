@@ -21,7 +21,7 @@ public interface ValidCodeService {
      * @Param:
      * @return:
      */
-    ResultVO getVaildCode(HttpServletRequest request,ValidCodeDO validCodeDO) throws Exception;
+    ResultVO getValidCode(HttpServletRequest request, ValidCodeDO validCodeDO) throws Exception;
 
     /**
     * @Author:
@@ -30,6 +30,6 @@ public interface ValidCodeService {
     * @Param:
     * @return:
     */
-    boolean isVaildCode(String account,String code);
+    boolean isValidCode(String account, String code);
 
 }
