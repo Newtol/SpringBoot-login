@@ -2,6 +2,7 @@ package cn.newtol.springbootlogin.services;
 
 import cn.newtol.springbootlogin.dao.UserInfo;
 import cn.newtol.springbootlogin.entity.ResultVO;
+import cn.newtol.springbootlogin.entity.ValidCodeDO;
 import cn.newtol.springbootlogin.myEnum.ResultEnum;
 import cn.newtol.springbootlogin.repository.RegisterRepository;
 import cn.newtol.springbootlogin.utils.DataUtil;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -27,8 +29,11 @@ public class RegisterServiceImpl implements RegisterService{
     private RegisterRepository registerRepository;
 
     @Resource
-    private
-    ValidCodeService validCodeService;
+    private ValidCodeService validCodeService;
+
+    @Resource
+    private PassWordService passWordService;
+
 
 
     /**
@@ -40,7 +45,8 @@ public class RegisterServiceImpl implements RegisterService{
      * @return: 返回注册的信息
      */
     @Override
-    public ResultVO register(UserInfo userinfo) {
+    public ResultVO register(HttpServletRequest request,UserInfo userinfo) {
+
         // 判断用户是否已经存在
         Boolean isExist = isRegister(userinfo);
         if (isExist){
@@ -48,21 +54,25 @@ public class RegisterServiceImpl implements RegisterService{
         }
 
         // 验证验证码是否正确
-        String account = null;
-        String code = userinfo.getVaildCode();
-        if(userinfo.getEmail() != null){
-            account = userinfo.getEmail();
+        ValidCodeDO validCodeDO = new ValidCodeDO();
+        String validCode = userinfo.getValidCode();
+        String phoneNum = userinfo.getPhoneNum();
+        String email = userinfo.getEmail();
+        validCodeDO.setValidCode(validCode);
+        if(phoneNum != null){
+            validCodeDO.setPhoneNum(phoneNum);
         }
-        else if(userinfo.getPhoneNum() != null){
-            account = userinfo.getPhoneNum();
+        if(email != null){
+            validCodeDO.setEmail(email);
         }
-        boolean re = validCodeService.isValidCode(account,code);
+
+        boolean re = validCodeService.isValidCode(request,validCodeDO);
         if(!re){
             return ResultUtil.error(ResultEnum.ValidCode_ERROR);
         }
 
         //对用户密码进行加密
-        String pwd = DataUtil.getPassWord(userinfo.getPassWord());
+        String pwd = passWordService.encryptPassWord(userinfo.getPassWord());
         userinfo.setPassWord(pwd);
 
         //随机产生用户的UserId
@@ -87,17 +97,16 @@ public class RegisterServiceImpl implements RegisterService{
         // 判断用户的注册方式
         if(userInfo.getEmail() != null){
             result = registerRepository.findUserInfoByEmail(userInfo.getEmail());
-
         }
         if(userInfo.getPhoneNum() != null){
             result = registerRepository.findUserInfoByPhoneNum(userInfo.getPhoneNum());
         }
-
         if(result != null){
             return true;
         }
         return false;
-
     }
+
+
 
 }

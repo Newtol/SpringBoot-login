@@ -2,6 +2,7 @@ package cn.newtol.springbootlogin.utils;
 
 import cn.newtol.springbootlogin.entity.ResultVO;
 import cn.newtol.springbootlogin.myEnum.ResultEnum;
+import org.hibernate.event.spi.SaveOrUpdateEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,9 @@ public class ValidCodeImgUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(ValidCodeImgUtil.class);
 
+    @Resource
+    private HttpServletUtil httpServletUtil;
+
     /**
      * 验证码在Session中存储的Key
      */
@@ -40,13 +44,15 @@ public class ValidCodeImgUtil {
     private static final String IS_VALID = "isValid";
 
     /**
-     * 判断用户是否验证通过
+     * 用户验证通过
      */
     private static final String VALID_SUCCESS = "success";
+
+    /**
+     * 用户验证失败
+     */
     private static final String VALID_FALSE = "false";
 
-    @Resource
-    private HttpServletUtil httpServletUtil;
     /**
      * 图片宽
      */
@@ -66,7 +72,6 @@ public class ValidCodeImgUtil {
     private String[] operatorNum = {"+","-","x","=","?"};
 
     private Random random = new Random();
-
 
     /**
      * 获得字体
@@ -90,10 +95,14 @@ public class ValidCodeImgUtil {
      */
     private void drowString(Graphics g,String str) {
         // 设置字符串字体
+        System.out.println(System.currentTimeMillis());
         g.setFont(getFont());
         g.setColor(getRandColor());
+
         g.translate(random.nextInt(3), random.nextInt(3));
+        System.out.println(System.currentTimeMillis());
         g.drawString(str, 13 , 16);
+        System.out.println(System.currentTimeMillis());
 
     }
 
@@ -101,6 +110,7 @@ public class ValidCodeImgUtil {
      * 获取算式
      */
     private String[] getString(){
+
         String str;
         // 获取数字,防止出现负数，所以num2小于num1
         Integer num1 = random.nextInt(100);
@@ -109,7 +119,6 @@ public class ValidCodeImgUtil {
         String ch = operatorNum[random.nextInt(2)];
         // 获取表达式
         str = num1+ ch + num2 + operatorNum[3] + operatorNum[4];
-
         // 获取算术结果
         Integer result = getResult(num1,num2,ch);
         if(result == null){
@@ -172,14 +181,17 @@ public class ValidCodeImgUtil {
         for (int i = 0; i <= lineSize; i++) {
             drowLine(g);
         }
+
         //绘制算术表达式
         String[] strings = getString();
         drowString(g,strings[0]);
+
 
         // 将结果存入session
         Map<String,Object> map = new HashMap<>(2);
         map.put(VALID_CODE_IMG_KEY ,strings[1]);
         httpServletUtil.setSession(map,request);
+
 
         try {
             // 将内存中的图片通过流动形式输出到客户端

@@ -27,5 +27,5 @@ public class ValidCodeDO {
     /**
      * 验证码
      */
-    private String code;
+    private String validCode;
 }

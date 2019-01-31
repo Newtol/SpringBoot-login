@@ -1,8 +1,8 @@
 package cn.newtol.springbootlogin.services;
 
+import cn.newtol.springbootlogin.entity.SMSMessage;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
-
-import java.security.NoSuchAlgorithmException;
 
 /**
  * @Author: 公众号：Newtol
@@ -12,7 +12,16 @@ import java.security.NoSuchAlgorithmException;
  */
 @Service
 public interface MessageService {
-   void sendEmail(String to, String subject, String content);
+   /**
+    * 发送邮件
+    * @param simpleMailMessage：邮件内容
+    */
+   void sendEmail(SimpleMailMessage simpleMailMessage);
 
-   void sendSMS(String to,String content,String templateid) throws Exception;
+   /**
+    * 发送短信
+    * @param smsMessage
+    * @throws Exception
+    */
+   void sendSMS(SMSMessage smsMessage) throws Exception;
 }

@@ -42,22 +42,11 @@ public class DataUtil {
     * @return:
     */
     public static String getRandomString(){
-
         String str = RandomStringUtils.randomAlphanumeric(6);
         return str;
     }
 
 
-    /**
-    * @Author:
-    * @Description: 获取随机的6位数字
-    * @Date: Created in 15:21 2019/1/26
-    * @Param:
-    * @return:
-    */
-    public static String getRandomNum(){
-        String num =  RandomStringUtils.randomNumeric(6);
-        return num;
-    }
+
 
 }

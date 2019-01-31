@@ -47,7 +47,12 @@ public enum ResultEnum {
     /**
      * 获取手机或邮箱验证码超过次数
      */
-     ValidCodeCountNum_OverFlow(7,"超过获取次数");
+     ValidCodeCountNum_OverFlow(7,"超过获取次数"),
+
+    /**
+     * 重置密码错误
+     */
+    ResetPassWord_ERROR(8,"重置密码错误");
 
 
 

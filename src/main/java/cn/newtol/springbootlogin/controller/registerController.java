@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 /**
@@ -28,8 +29,8 @@ public class registerController {
     * @return:
     */
     @PostMapping("/register")
-    public ResultVO register(@Valid UserInfo userInfo){
-        return registerService.register(userInfo);
+    public ResultVO register(HttpServletRequest request,@Valid UserInfo userInfo){
+        return registerService.register(request,userInfo);
     }
 
 

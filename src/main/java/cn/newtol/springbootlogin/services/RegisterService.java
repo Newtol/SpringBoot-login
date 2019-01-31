@@ -5,6 +5,8 @@ import cn.newtol.springbootlogin.entity.ResultVO;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @Author: 公众号：Newtol
  * @Description:
@@ -21,7 +23,7 @@ public interface RegisterService {
     * @Param:
     * @return: 返回注册的信息
     */
-    ResultVO register(UserInfo userinfo);
+    ResultVO register(HttpServletRequest request,UserInfo userinfo);
 
     /**
     * @Author:
@@ -31,5 +33,6 @@ public interface RegisterService {
     * @return:
     */
     Boolean isRegister(UserInfo userInfo);
+
 
 }

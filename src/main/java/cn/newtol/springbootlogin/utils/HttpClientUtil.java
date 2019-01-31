@@ -29,18 +29,23 @@ import java.util.Set;
  * @Date: Created in 16:45 2018/11/10
  */
 public class HttpClientUtil {
-    // 编码格式。发送编码格式统一用UTF-8
+    /**
+     * 编码格式。发送编码格式统一用UTF-8
+     */
     private static final String ENCODING = "UTF-8";
 
-    // 设置连接超时时间，单位毫秒。
+    /**
+     * 设置连接超时时间，单位毫秒
+     */
     private static final int CONNECT_TIMEOUT = 6000;
 
-    // 请求获取数据的超时时间(即响应时间)，单位毫秒。
+    /**
+     * 请求获取数据的超时时间(即响应时间)，单位毫秒。
+     */
     private static final int SOCKET_TIMEOUT = 6000;
 
     /**
      * 发送get请求；不带请求头和请求参数
-     *
      * @param url 请求地址
      * @return
      * @throws Exception
@@ -51,7 +56,6 @@ public class HttpClientUtil {
 
     /**
      * 发送get请求；带请求参数
-     *
      * @param url 请求地址
      * @param params 请求参数集合
      * @return
@@ -63,13 +67,13 @@ public class HttpClientUtil {
 
     /**
      * 发送get请求；带请求头和请求参数
-     *
      * @param url 请求地址
      * @param headers 请求头集合
      * @param params 请求参数集合
      * @return
      * @throws Exception
      */
+
     public static HttpClientResult doGet(String url, Map<String, String> headers, Map<String, String> params) throws Exception {
         // 创建httpClient对象
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -139,8 +143,8 @@ public class HttpClientUtil {
     * @Date: Created in 20:01
     * @param:
     */
-    public static HttpClientResult doPostForJson(String url,String content){
-        return doPostForJson(url, content);
+    public static HttpClientResult doPostWithJson(String url, String content){
+        return doPostWithJson(url, content);
     }
 
     /**
@@ -150,7 +154,7 @@ public class HttpClientUtil {
     * @param:
     */
 
-    public static HttpClientResult doPostForJson(String url, Map<String, String> params, String content) throws Exception {
+    public static HttpClientResult doPostWithJson(String url, Map<String, String> params, String content) throws Exception {
         // 创建httpClient对象
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
